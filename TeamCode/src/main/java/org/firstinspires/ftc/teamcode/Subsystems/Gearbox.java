@@ -39,6 +39,8 @@ public class Gearbox extends Subsystem {
 
         this.currentGear = 1;
         this.targetGear = 1;
+
+        this.shifter.setPosition(gear1);
     }
 
     public boolean isShifting() {

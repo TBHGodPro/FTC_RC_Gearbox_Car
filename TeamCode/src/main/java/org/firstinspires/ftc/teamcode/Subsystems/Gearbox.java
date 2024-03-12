@@ -28,10 +28,7 @@ public class Gearbox extends Subsystem {
     public int targetGear;
 
     public enum ShiftingState {
-        STOPPED,
-        WAIT_START,
-        SHIFT,
-        WAIT_END,
+        STOPPED, WAIT_START, SHIFT, WAIT_END,
     }
 
     public Gearbox(MainOp op) {
@@ -45,18 +42,18 @@ public class Gearbox extends Subsystem {
     }
 
     public boolean isShifting() {
-        return !state.equals(ShiftingState.STOPPED);
+        return state != ShiftingState.STOPPED;
     }
 
     public void shiftUp() {
-        if (isShifting()) return;
+        if (isShifting() || currentGear == 3) return;
         timer.reset();
         this.targetGear += 1;
         this.state = ShiftingState.WAIT_START;
     }
 
     public void shiftDown() {
-        if (isShifting()) return;
+        if (isShifting() || currentGear == 1) return;
         timer.reset();
         this.targetGear -= 1;
         this.state = ShiftingState.WAIT_START;
